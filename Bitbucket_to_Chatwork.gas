@@ -1,0 +1,14 @@
+function sendToChatwork(body) {
+  var api_token = 'your token';
+  var room_id = 'room id';
+  var cw = ChatWorkClient.factory({token: api_token});
+  cw.sendMessage({room_id: room_id, body: body});
+}
+
+function doPost(e) {
+  var json = JSON.parse(e.postData.getDataAsString());
+  var actor = json["actor"];
+  var name = actor["username"];
+  var body = '[info]' + name + '\nBitbucket Push[/info]';
+  sendToChatwork(body);
+}
